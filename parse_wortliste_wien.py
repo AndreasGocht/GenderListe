@@ -11,11 +11,11 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
-def parse_list_oesterreich(file_name):
+def parse_gendering_wortkatalog_wien(file_name):
     """
     Pases the "corected" "Gendering-Wortkatalog Wien" list from:
     https://www.data.gv.at/katalog/dataset/stadt-wien_genderingwortkatalogderstadtwien
-    corected: e.g. randon " removed
+    corected: e.g. randon " removed.
     """
     base_words = set()
     parsed_lines = 0
@@ -122,24 +122,24 @@ if __name__ == "__main__":
             raise argparse.ArgumentTypeError('Boolean value expected.')
 
     import argparse
-    parser = argparse.ArgumentParser(description='Ließt Österreichische Genderliste, und schreibt ein Worddictonary.')
+    parser = argparse.ArgumentParser(description='Ließt Gendering-Wortkatalog Wien, und schreibt ein Wordwörterbuch.')
     parser.add_argument("-g", "--gendersperator", type=str, required=True, nargs='?', help="Genderzeichen")
     parser.add_argument("-b", "--binnen_i", type=str2bool, required=True, nargs='?', help="Binnen-I, [ja oder nein]")
 
     parser.add_argument(
         "-o",
-        "--oesterreich_gernder_liste",
+        "--gendering-wortkatalog-wien",
         type=str,
         required=False,
         nargs='?',
-        help="Österreichische Genderliste")
+        help="Gendering-Wortkatalog Wien")
     parser.add_argument(
         "-l",
         "--liste",
         type=str,
         required=False,
         nargs='?',
-        help="Liste mit Wörtern, die zu Gendern sind")
+        help="Liste mit Wörtern, die zu gendern sind")
     parser.add_argument(
         "-i",
         "--ignore-liste",
@@ -154,7 +154,7 @@ if __name__ == "__main__":
         required=False,
         nargs='?',
         default="gender_liste.dic",
-        help="Wöterbuch Name zum Speichern")
+        help="Wörterbuch Name zum Speichern")
     parser.add_argument(
         "-f",
         "--fehler-woerterbuch",
@@ -162,13 +162,13 @@ if __name__ == "__main__":
         required=False,
         nargs='?',
         default="fehler_woerter.txt",
-        help="Wöterbuch mit Wörtern, die nicht verarbeitet werden können")
+        help="Wörterbuch mit Wörtern, die nicht verarbeitet werden können")
 
     args = parser.parse_args()
 
-    if args.oesterreich_gernder_liste:
+    if args.gendering_wortkatalog_wien:
         if not args.ignore_liste:
-            raise RuntimeError("\"Gendering-Wortkatalog Wien needs\" ignore-list ")
+            raise RuntimeError("\"Gendering-Wortkatalog Wien needs\" --ignore-liste")
 
     if args.ignore_liste:
         ignore_words = parse_list(args.ignore_liste)
@@ -177,9 +177,9 @@ if __name__ == "__main__":
 
     gender = GenderWords(args.gendersperator, args.binnen_i, ignore_words)
 
-    if args.oesterreich_gernder_liste:
-        base_words, parsed_lines, skipped_lines = parse_list_oesterreich(args.oesterreich_gernder_liste)
-        print("{} Geparste Zeilen. {} Übersprungene Zeilen.".format(parsed_lines, skipped_lines))
+    if args.gendering_wortkatalog_wien:
+        base_words, parsed_lines, skipped_lines = parse_gendering_wortkatalog_wien(args.gendering_wortkatalog_wien)
+        print("{} geparste Zeilen. {} übersprungene Zeilen.".format(parsed_lines, skipped_lines))
         gender.gen_list(base_words)
 
     if args.liste:
@@ -189,5 +189,5 @@ if __name__ == "__main__":
     save_list(args.woerterbuch, gender.word_list)
     save_failed_list(args.fehler_woerterbuch, gender.failed_word_list)
 
-    print("{} Wörter erfolgreich verarbeitet. {} Fehler. {} Österreichischer Dialekt".format(
+    print("{} Wörter erfolgreich verarbeitet. {} Fehler. {} österreichischer Dialekt".format(
         gender.sucessfull_words, gender.failed_words, gender.dialect_words))
