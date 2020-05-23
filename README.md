@@ -28,13 +28,13 @@ optional arguments:
   -o [GENDERING_WORTKATALOG_WIEN], --gendering-wortkatalog-wien [GENDERING_WORTKATALOG_WIEN]
                         Gendering-Wortkatalog Wien
   -l [LISTE], --liste [LISTE]
-                        Liste mit Wörtern, die zu gendern sind
+                        Zusätzliche Liste mit Wörtern, die zu gendern sind, ein Wort pro Zeile
   -i [IGNORE_LISTE], --ignore-liste [IGNORE_LISTE]
-                        Liste mit Wörtern, die zu ignorieren sind
+                        Liste mit Wörtern, die zu ignorieren sind, ein Wort pro Zeile
   -w [WOERTERBUCH], --woerterbuch [WOERTERBUCH]
                         Wörterbuch Name zum Speichern
   -f [FEHLER_WOERTERBUCH], --fehler-woerterbuch [FEHLER_WOERTERBUCH]
-                        Wörterbuch mit Wörtern, die nicht verarbeitet werden können```
+                        Wörterbuch mit Wörtern, die nicht verarbeitet werden können
 ```
 
 Besipiel:

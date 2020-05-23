@@ -139,14 +139,14 @@ if __name__ == "__main__":
         type=str,
         required=False,
         nargs='?',
-        help="Liste mit Wörtern, die zu gendern sind")
+        help="Zusätzliche Liste mit Wörtern, die zu gendern sind, ein Wort pro Zeile")
     parser.add_argument(
         "-i",
         "--ignore-liste",
         type=str,
         required=False,
         nargs='?',
-        help="Liste mit Wörtern, die zu ignorieren sind")
+        help="Liste mit Wörtern, die zu ignorieren sind, ein Wort pro Zeile")
     parser.add_argument(
         "-w",
         "--woerterbuch",
