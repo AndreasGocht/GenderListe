@@ -13,9 +13,9 @@ log = logging.getLogger(__name__)
 
 def parse_list_oesterreich(file_name):
     """
-    Pases the "corected" list from:
+    Pases the "corected" "Gendering-Wortkatalog Wien" list from:
     https://www.data.gv.at/katalog/dataset/stadt-wien_genderingwortkatalogderstadtwien
-    e.g. randon " removed
+    corected: e.g. randon " removed
     """
     base_words = set()
     parsed_lines = 0
@@ -51,10 +51,12 @@ def parse_list(file_name):
     Pases any list, one word per line
     """
     base_words = set()
-    with open(file_name) as csvfile:
-        word = csvfile.readline().strip()
-        base_words.add(word)
-    return word
+    with open(file_name) as f:
+        for line in f:
+            word = line[:line.find("#")]  # look for comment
+            word = word.strip()
+            base_words.add(word)
+    return base_words
 
 
 def save_list(file_name, new_word_list):
@@ -70,9 +72,11 @@ def save_failed_list(file_name, failed_words):
 
 
 class GenderWords():
-    def __init__(self, seperator, camel_case):
+    def __init__(self, seperator, camel_case, ignore_words):
         self._seperator = seperator
         self._camel_case = camel_case
+        self._ignore_words = ignore_words
+
         self.sucessfull_words = 0
         self.failed_words = 0
         self.dialect_words = 0
@@ -87,8 +91,14 @@ class GenderWords():
 
     def gen_list(self, base_words):
         for word in sorted(base_words):
+            if word in self._ignore_words:
+                continue
             if word[-2:] == "er":
                 new_word = self.gender_word(word)
+                self.word_list.add(new_word)
+                self.sucessfull_words += 1
+            elif word[-1:] == "e":  # risky, but works with ignore-list:
+                new_word = self.gender_word(word[:-1])
                 self.word_list.add(new_word)
                 self.sucessfull_words += 1
             elif word[-3:] == "ern":
@@ -131,6 +141,13 @@ if __name__ == "__main__":
         nargs='?',
         help="Liste mit Wörtern, die zu Gendern sind")
     parser.add_argument(
+        "-i",
+        "--ignore-liste",
+        type=str,
+        required=False,
+        nargs='?',
+        help="Liste mit Wörtern, die zu ignorieren sind")
+    parser.add_argument(
         "-w",
         "--woerterbuch",
         type=str,
@@ -149,7 +166,16 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    gender = GenderWords(args.gendersperator, args.binnen_i)
+    if args.oesterreich_gernder_liste:
+        if not args.ignore_liste:
+            raise RuntimeError("\"Gendering-Wortkatalog Wien needs\" ignore-list ")
+
+    if args.ignore_liste:
+        ignore_words = parse_list(args.ignore_liste)
+    else:
+        ignore_words = []
+
+    gender = GenderWords(args.gendersperator, args.binnen_i, ignore_words)
 
     if args.oesterreich_gernder_liste:
         base_words, parsed_lines, skipped_lines = parse_list_oesterreich(args.oesterreich_gernder_liste)
