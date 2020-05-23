@@ -1,6 +1,6 @@
 # GenderListe
 
-> This is a German Language based Project. The README.md is therefore in German.
+> This is a German Language-based Project. The README.md is therefore in German.
 
 Kleines Python Skript, das aus gegeben Wortlisten ein MS Word kompatibles Wörterbuch mit gegenderten Wörtern generiert.
 
