@@ -11,5 +11,5 @@ deploy:
     - gender_liste.dic
     - fehler_woerter.txt
   on:
-    repo: AndreasGocht/GenderListe
+    tags: true
   skip_cleanup: 'true'
