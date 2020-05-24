@@ -186,8 +186,8 @@ if __name__ == "__main__":
         words = parse_list(args.liste)
         gender.gen_list(words)
 
-    save_list(args.woerterbuch, gender.word_list)
-    save_failed_list(args.fehler_woerterbuch, gender.failed_word_list)
+    save_list(args.woerterbuch, sorted(gender.word_list))
+    save_failed_list(args.fehler_woerterbuch, sorted(gender.failed_word_list))
 
     print("{} Wörter erfolgreich verarbeitet. {} Fehler. {} österreichischer Dialekt".format(
         gender.sucessfull_words, gender.failed_words, gender.dialect_words))
