@@ -9,7 +9,11 @@ Beispiel:
 "Arbeiter" wird zu "Arbeiter:innen", wenn ":" als Gendertrennzeichen geben wurde.
 
 Die Basisliste `worttabelle.csv` basiert auf dem "Gendering-Wortkatalog Wien", und steht unter Creative Commons Namensnennung 4.0 International.
-Leider enthält die orginal Liste von [https://www.data.gv.at/katalog/dataset/stadt-wien_genderingwortkatalogderstadtwien] ein paar " die das Parsing erschweren, welche in der hier vorliegenden Version entfernt wurden.
+Leider enthält die orginal Liste von https://www.data.gv.at/katalog/dataset/stadt-wien_genderingwortkatalogderstadtwien ein paar " die das Parsing erschweren, welche in der hier vorliegenden Version entfernt wurden.
+
+Eine kleine Auswahl an bereits generierten Wörterbüchern für MS Office gibt es unter https://github.com/AndreasGocht/GenderListe/releases.
+Unter [Hinzufügen oder Bearbeiten von Wörtern in einem Rechtschreibwörterbuch](https://support.office.com/de-de/article/hinzuf%C3%BCgen-oder-bearbeiten-von-w%C3%B6rtern-in-einem-rechtschreibw%C3%B6rterbuch-56e5c373-29f8-4d11-baf6-87151725c0dc) ganz untern gibt es eine Anleitung, wie die Wörterbücher hinzugefügt werden können (Hinzufügen des Benutzerwörterbuchs eines Drittanbieters).
+`fehler_woerter.txt` listet Worte auf, die nicht aus dem Gendering-Wortkatalog Wien aufgenommen werden konnten.
 
 ## Benutzung
 
