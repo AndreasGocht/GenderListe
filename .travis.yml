@@ -1,14 +1,15 @@
 language: python
 python:
-    - "3.8"
-script: python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste.dic -f fehler_woerter.txt
+- '3.8'
+script: python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i ignor_liste.txt
+  -l my-list.txt -w gender_liste.dic -f fehler_woerter.txt
 deploy:
-    provider: releases
-    api_key:
-        secure: $CI_API_KEY_ENCRYPTED
-    file: 
-        - gender_liste.dic
-        - fehler_woerter.txt
-    skip_cleanup: true
-    on:
-        tags: true    
+  provider: releases
+  api_key:
+    secure: zdE5maVAZPWM30wX2IIe31KQWvGU2b65RkimUO4kNqypSfps2yxzCdwgrR3Cyjpn9uuAefGVV5vWxbnm4LcD8+c3MOKAW46mrjlltb//rSSM2FmeLAYzOUXhLpSUaA30B47iVJX1pfpAgd29eBh3mSBD0sgvowgH6HuLMbXtWu+EZbWJF0VYPR0eTCLy1BQNP/iYXU/n6nCG2IMdPcK6mIgZI4lSe/ZPUpY9yOKExMUmOK5/GDcfA+oAEPiq1IHEMyuVQ/fx/aEKOLvrfUJAbB6XuMGMxHr7BPbThQ8lQXsckugMttsOIBjQqtSfCzGlhQe7nSZdW9zwfCEUo30o7DZeyQuYJLaGvUOB/KmI7Jnbp2ZQxtKls3inGQkdQqUqC6qtacLBgtWWbV2+5WlhRY0RQ8tjcFO3mSgDnIKjJjnNgawwdeEtYxXoh/P3+Ut33C7JMwkLgcoXZ01HQShKutKhGIdWOUk+2pRW+C6y7pMUBG4CndMMOPkUevrHhW3wwjIbSHbdsy6nxq71EqibxATeiXYcfUli9aHCuV/YYAPnbBZZYaF36SWscxOGljbM65sU9OBFVlglYS8OeTDx9N+OTR5v46KP5DJCEqi3RVQmbnZxaujqaZ7bZ7S/qRGi0RQJaNW4xwOSPhpLtNnlt7p6vTt4dF2pCbM+BOWjNdU=
+  file:
+    - gender_liste.dic
+    - fehler_woerter.txt
+  on:
+    repo: AndreasGocht/GenderListe
+  skip_cleanup: 'true'
