@@ -3,11 +3,9 @@ python:
 - '3.8'
 script:
    - python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_doppelpunkt.dic -f fehler_woerter.txt
-   - python parse_wortliste_wien.py -g "_" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich.dic -f fehler_woerter.txt
-   - python parse_wortliste_wien.py -g ":" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_doppelpunkt_binnen_i.dic -f fehler_woerter.txt
-   - python parse_wortliste_wien.py -g "_" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich_binnen_i.dic -f fehler_woerter.txt
-
-   
+   - python parse_wortliste_wien.py -g "_" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich.dic -v ERROR
+   - python parse_wortliste_wien.py -g ":" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_doppelpunkt_binnen_i.dic -v ERROR
+   - python parse_wortliste_wien.py -g "_" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich_binnen_i.dic -v ERROR
 deploy:
   provider: releases
   api_key:
@@ -17,6 +15,7 @@ deploy:
     - gender_liste_unterstrich.dic
     - gender_liste_doppelpunkt_binnen_i.dic
     - gender_liste_unterstrich_binnen_i.dic
+    - fehler_woerter.txt
   on:
     tags: true
   skip_cleanup: 'true'
