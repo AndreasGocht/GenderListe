@@ -1,13 +1,22 @@
 language: python
 python:
 - '3.8'
-script: python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i ignor_liste.txt
-  -l my-list.txt -w gender_liste.dic -f fehler_woerter.txt
+script:
+   - python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_doppelpunkt.dic -f fehler_woerter.txt
+   - python parse_wortliste_wien.py -g "_" -b nein -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich.dic -f fehler_woerter.txt
+   - python parse_wortliste_wien.py -g ":" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_doppelpunkt_binnen_i.dic -f fehler_woerter.txt
+   - python parse_wortliste_wien.py -g "_" -b ja -o worttabelle.csv -i ignor_liste.txt -l my-list.txt -w gender_liste_unterstrich_binnen_i.dic -f fehler_woerter.txt
+
+   
 deploy:
   provider: releases
   api_key:
     secure: jbB2Fzdmp+1j9/H+xGcPugUZxUF/yZEnQR4bwbDmTMp9HMxBc5LIAfowisZC7kAtBdBv0jqql6iImr7SPOJ7rt4OWrlry2WXGvh/lI7hTkp5LPDpDFn7a6SpU/ZZ+D/+aUKxz8GpCBQzNhun/bxbatAWryjPE+weEytW70W2DgUuYkZMZekFceE2KrF/ALg5ExLSp/1R7Zu9Uesl7TDsnM38nMZb3QpGGTiSbh4kxCo0whBbUFD1lUVup/ga7xy+mZywkVjUmyhIsQc0CGNyeKZi/RPNftKOfJrJ+orj4cZCQErVY5fn9zNjIDQae6LiwTiztI6lUSrtZz6XNXYbahIO8+ydhA4NavUa/XZgXrbvXrZmugffud4MQvHF/LlRDRcOsbME0wGul9DI7kk9IAvC9cnIS66QSYVhDxCoYTqLCq7IpHzomsZscyf3yJ3vYEm+wSZ58coKmoainU+0wjjI/LXom6Oq6vuWrGYFMeoefOGadcFhlM+kMJQyhQ7oLBjlFWmwd6aktPXFAFQvkS+iSGRWXuBLaUB4e2rflV0uivws4763t3iqUMll8t4dJ6l2OBUGRR4zfGIs47mNwKedWWM2ldWeMABQlLe7JINJa19gmSjtUJQrgIGnjON9pVVEKcCSANnAZgxHpkECbfcl8aphID6ZvWnj940i6pY=
-  file: gender_liste.dic
+  file:
+    - gender_liste_doppelpunkt.dic
+    - gender_liste_unterstrich.dic
+    - gender_liste_doppelpunkt_binnen_i.dic
+    - gender_liste_unterstrich_binnen_i.dic
   on:
-    repo: AndreasGocht/GenderListe
+    tags: true
   skip_cleanup: 'true'
