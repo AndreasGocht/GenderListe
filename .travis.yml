@@ -5,7 +5,7 @@ script: python parse_wortliste_wien.py -g ":" -b nein -o worttabelle.csv -i igno
 deploy:
     provider: releases
     api_key:
-        secure: CI_API_KEY_ENCRYPTED
+        secure: $CI_API_KEY_ENCRYPTED
     file: 
         - gender_liste.dic
         - fehler_woerter.txt
