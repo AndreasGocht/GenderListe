@@ -7,7 +7,6 @@ Created on 23.05.2020
 import csv
 import logging
 
-logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
@@ -125,7 +124,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Ließt Gendering-Wortkatalog Wien, und schreibt ein Wordwörterbuch.')
     parser.add_argument("-g", "--gendersperator", type=str, required=True, nargs='?', help="Genderzeichen")
     parser.add_argument("-b", "--binnen_i", type=str2bool, required=True, nargs='?', help="Binnen-I, [ja oder nein]")
-
+    
     parser.add_argument(
         "-o",
         "--gendering-wortkatalog-wien",
@@ -161,10 +160,15 @@ if __name__ == "__main__":
         type=str,
         required=False,
         nargs='?',
-        default="fehler_woerter.txt",
+        default=None,
         help="Wörterbuch mit Wörtern, die nicht verarbeitet werden können")
+    
+    parser.add_argument("-v", "--verbose", type=str, required=False, nargs='?', help="LogLevel [DEBUG|INFO|WARNING|ERROR|CRITICAL]")
 
     args = parser.parse_args()
+    
+    if args.verbose:
+        logging.basicConfig(level=args.verbose.upper())
 
     if args.gendering_wortkatalog_wien:
         if not args.ignore_liste:
@@ -187,7 +191,9 @@ if __name__ == "__main__":
         gender.gen_list(words)
 
     save_list(args.woerterbuch, sorted(gender.word_list))
-    save_failed_list(args.fehler_woerterbuch, sorted(gender.failed_word_list))
+    
+    if args.fehler_woerterbuch:
+        save_failed_list(args.fehler_woerterbuch, sorted(gender.failed_word_list))
 
     print("{} Wörter erfolgreich verarbeitet. {} Fehler. {} österreichischer Dialekt".format(
         gender.sucessfull_words, gender.failed_words, gender.dialect_words))
